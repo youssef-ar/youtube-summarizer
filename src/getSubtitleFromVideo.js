@@ -3,6 +3,15 @@ import axios from 'axios';
 import he from "he";
 import striptags from "striptags";
 
+
+export const getSubtitleFromVideo =async (video)=>{
+    const video_id = getVideoId(video);
+    const html = await getHtml(video_id);
+    const subtitle = await getSubtitle(html);
+    return subtitle;
+}
+
+
 const getHtml = async(video_id)=>{
     const {data : html} =await axios.get(`https://youtube.com/watch?v=${video_id}`);
     return html;
@@ -35,11 +44,4 @@ const getVideoId = (video)=>{
     }else{
         return video;
     }
-}
-
-const getSubtitleFromVideo =async (video)=>{
-    const video_id = getVideoId(video);
-    const html = await getHtml(video_id);
-    const subtitle = await getSubtitle(html);
-    return subtitle;
 }

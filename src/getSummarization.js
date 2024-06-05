@@ -1,14 +1,14 @@
 import Groq from "groq-sdk";
 import dotenv from 'dotenv';
 
-dotenv.config({ path: '../.env' });
+dotenv.config(/*{ path: '../.env' }*/);
 
 const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY
 });
-async function main(subtitle) {
+export async function getSummarization(subtitle) {
     const chatCompletion = await getGroqChatCompletion(subtitle);
-    process.stdout.write(chatCompletion.choices[0]?.message?.content || "");
+    return(chatCompletion.choices[0]?.message?.content || "");
 }
 async function getGroqChatCompletion(subtitle) {
     return groq.chat.completions.create({
@@ -24,9 +24,4 @@ async function getGroqChatCompletion(subtitle) {
         model: "llama3-8b-8192"
     });
 }
-main();
 
-/*module.exports = {
-    main,
-    getGroqChatCompletion
-};*/
