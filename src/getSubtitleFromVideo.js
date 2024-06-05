@@ -43,5 +43,3 @@ const getSubtitleFromVideo =async (video)=>{
     const subtitle = await getSubtitle(html);
     return subtitle;
 }
-
-
